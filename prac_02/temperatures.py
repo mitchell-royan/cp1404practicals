@@ -5,10 +5,10 @@ Program for temperature conversion
 
 
 def main():
-    MENU = """C - Convert Celsius to Fahrenheit
+    menu = """C - Convert Celsius to Fahrenheit
 F - Convert Fahrenheit to Celsius
 Q - Quit"""
-    print(MENU)
+    print(menu)
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "C":
@@ -21,7 +21,7 @@ Q - Quit"""
             print(f"Result: {celsius:.2f} C")
         else:
             print("Invalid option")
-        print(MENU)
+        print(menu)
         choice = input(">>> ").upper()
     print("Thank you.")
 
