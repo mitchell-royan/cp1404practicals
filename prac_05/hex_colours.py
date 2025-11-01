@@ -1,5 +1,5 @@
 """
-Practical 05 - CP1404
+Practical 05 - CP1404 - Hex Colours
 """
 
 COLOUR_TO_HEX = {"aliceblue": "#f0f8ff", "antiquewhite": "#faebd7", "aqua": "#00ffff", "asparagus": "#87a96b",
@@ -9,7 +9,7 @@ COLOUR_TO_HEX = {"aliceblue": "#f0f8ff", "antiquewhite": "#faebd7", "aqua": "#00
 colour_name = input("Enter a colour name: ").lower()
 while colour_name != "":
     try:
-        print(colour_name.title(), "is", COLOUR_TO_HEX[colour_name])
+        print(colour_name.title(), " is ", COLOUR_TO_HEX[colour_name])
     except KeyError:
         print("Invalid colour name, try again.")
     colour_name = input("Enter a colour name: ").lower()
