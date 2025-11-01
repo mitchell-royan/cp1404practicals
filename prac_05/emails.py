@@ -10,7 +10,7 @@ def main():
     email_to_name = {}
     email = input("Email: ")
     while email != "":
-        name = get_name_from_email(email)
+        name = find_name_from_email(email)
         confirmation = input(f"Is your name {name}? (Y/N) ").upper()
         if confirmation != "Y" and confirmation != "":
             name = input("Name: ")
@@ -21,7 +21,7 @@ def main():
         print(f"{name} ({email})")
 
 
-def get_name_from_email(email):
+def find_name_from_email(email):
     """Extract an expected name based off inputted email"""
     prefix = email.split('@')[0]
     parts = prefix.replace('.', ' ').split()

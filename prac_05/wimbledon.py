@@ -8,7 +8,7 @@ FILENAME = "wimbledon.csv"
 
 
 def main():
-    """Read data file and displays details about campion win counts and countries"""
+    """Read data file and displays details about champion win counts and countries"""
     records = load_file_data(FILENAME)
     champion_to_wins, countries = process_records(records)
     display_results(champion_to_wins, countries)
