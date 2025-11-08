@@ -80,7 +80,15 @@ def load_projects(filename):
 
 
 def save_projects(projects):
-    print("save projects")
+    """Ask for filename and then save projects to it"""
+    filename = input("Filename to save projects to: ").strip() or DEFAULT_FILENAME
+
+    with open(filename, "w", encoding="utf-8") as out_file:
+        print("Name\tStart Date\tPriority\tCost Estimate\tCompletion", file=out_file)
+        for p in projects:
+            start_str = p.start_date.strftime("%d/%m/%Y")
+            print(f"{p.name}\t{start_str}\t{p.priority}\t{p.cost_estimate}\t{p.completion}", file=out_file)
+    print(f"Saved {len(projects)} projects to {filename}")
 
 
 def display_projects(projects):
