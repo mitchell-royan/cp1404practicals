@@ -6,6 +6,7 @@ Actual:
 
 import datetime
 from project import Project
+from operator import attrgetter
 
 DEFAULT_FILENAME = "projects.txt"
 DATE_INPUT_FORMATS = ("%d/%m/%Y", "%d/%m/%y")
@@ -107,7 +108,18 @@ def display_projects(projects):
 
 
 def filter_projects_by_date(projects):
-    print("filter projects")
+    """Ask user for date, then filter projects that start after it"""
+    date_string = input("Show projects that start after date (dd/mm/yy): ").strip()
+    try:
+        after = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+    except ValueError:
+        after = datetime.datetime.strptime(date_string, "%d/%m/%y").date()
+
+    filtered = [p for p in projects if p.start_date >= after]
+    filtered.sort(key=attrgetter("start_date"))
+
+    for p in filtered:
+        print(p)
 
 
 def add_new_project(projects):
