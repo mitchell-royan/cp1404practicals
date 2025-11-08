@@ -1,7 +1,7 @@
 """
 CP1404 Practical 07 - Project Management
 Estimated: 1 Hour
-Actual:
+Actual: 4-5 hours
 """
 
 import datetime
@@ -51,7 +51,7 @@ def main():
         elif choice == "U":
             update_project(projects)
         elif choice == "Q":
-            print("Goodbye!")
+            print("Would you like to save to projects.txt? no, I think not.")
         else:
             print("Invalid choice")
     print("Thank you for using custom-built project management software.")
@@ -142,7 +142,26 @@ def add_new_project(projects):
 
 
 def update_project(projects):
-    print("update project")
+    """Choose a project and change completion or priority"""
+    if len(projects) == 0:
+        print("No projects to update")
+        return
+
+    for i, project in enumerate(projects):
+        print(f"{i} {project}")
+
+    choice_text = input("Project choice: ")
+    index = int(choice_text)
+    project = projects[index]
+    print(project)
+
+    new_percent_text = input("New Percentage: ")
+    if new_percent_text.strip() != "":
+        project.completion = int(new_percent_text)
+
+    new_priority_text = input("New Priority: ")
+    if new_priority_text.strip() != "":
+        project.priority = int(new_priority_text)
 
 
 if __name__ == "__main__":
