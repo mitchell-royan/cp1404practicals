@@ -8,7 +8,7 @@ import datetime
 from project import Project
 
 DEFAULT_FILENAME = "projects.txt"
-DATE_INPUT_FORMATS = ("%d/m/%Y", "%d/%m/%y")
+DATE_INPUT_FORMATS = ("%d/%m/%Y", "%d/%m/%y")
 
 MENU = ("- (L)oad projects\n"
         "- (S)ave projects\n"
@@ -33,7 +33,12 @@ def main():
         print(MENU)
         choice = input(">>> ").strip().upper()
         if choice == "L":
-            load_projects(projects)
+            filename = input("Filename to load: ").strip() or DEFAULT_FILENAME
+            try:
+                projects = load_projects(filename)
+                print(f"Loaded {len(projects)} projects from {filename}")
+            except FileNotFoundError:
+                print(f"File not found: {filename}")
         elif choice == "S":
             save_projects(projects)
         elif choice == "D":
@@ -48,6 +53,7 @@ def main():
             print("Goodbye!")
         else:
             print("Invalid choice")
+    print("Thank you for using custom-built project management software.")
 
 
 def load_projects(filename):
@@ -104,5 +110,7 @@ def update_project(projects):
     print("update project")
 
 
-main()
+if __name__ == "__main__":
+    main()
+
 
