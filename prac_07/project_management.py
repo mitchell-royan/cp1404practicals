@@ -123,7 +123,21 @@ def filter_projects_by_date(projects):
 
 
 def add_new_project(projects):
-    print("add new project")
+    """Prompts user for new project to add"""
+    print("Let's add a new project")
+    name = input("Name: ").strip()
+    start_date_input = input("Start date (dd/mm/yy): ").strip()
+    try:
+        start_date = datetime.datetime.strptime(start_date_input, "%d/$m/%Y").date()
+    except ValueError:
+        start_date = datetime.datetime.strptime(start_date_input, "%d/%m/%Y").date()
+
+    priority = int(input("Priority: ").strip())
+    cost_estimate = float(input("Cost estimate: $").strip())
+    completion = int(input("Percent complete: ").strip())
+
+    projects.append(Project(name, start_date, priority, cost_estimate, completion))
+    print(f"Added: {projects[-1]}")
 
 
 def update_project(projects):
