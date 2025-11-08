@@ -21,7 +21,13 @@ MENU = ("- (L)oad projects\n"
 
 def main():
     print("Welcome to Pythonic Project Management")
-    projects = []
+    try:
+        projects = load_projects(DEFAULT_FILENAME)
+        print(f"Loaded {len(projects)} projects from {DEFAULT_FILENAME}")
+    except FileNotFoundError:
+        projects = []
+        print("No default file found; starting with 0 projects.")
+
     choice = ""
     while choice != "Q":
         print(MENU)
@@ -44,8 +50,27 @@ def main():
             print("Invalid choice")
 
 
-def load_projects(projects):
-    print("load projects")
+def load_projects(filename):
+    """Load projects"""
+    projects = []
+    with open(filename, "r", encoding="utf-8") as in_file:
+        in_file.readline()
+        for raw_line in in_file:
+            line = raw_line.strip()
+            if line == "":
+                continue
+            name, start_str, priority_s, cost_s, completion_s = line.split("\t")
+            start_dt = datetime.datetime.strptime(start_str, "%d/%m/%Y").date()
+
+            project = Project(
+                name=name,
+                start_date=start_dt,
+                priority=int(priority_s),
+                cost_estimate=float(cost_s),
+                completion=int(completion_s),
+            )
+            projects.append(project)
+        return projects
 
 
 def save_projects(projects):
@@ -53,7 +78,18 @@ def save_projects(projects):
 
 
 def display_projects(projects):
-    print("display projects")
+    """Display two groups, incomplete and complete, sorted by priority"""
+    incomplete = [p for p in projects if not p.is_complete()]
+    completed = [p for p in projects if p.is_complete()]
+    incomplete.sort()
+    completed.sort()
+    print("Incomplete projects: ")
+    for p in incomplete:
+        print(f" {p}")
+
+    print("Completed projects: ")
+    for p in completed:
+        print(f" {p}")
 
 
 def filter_projects_by_date(projects):
