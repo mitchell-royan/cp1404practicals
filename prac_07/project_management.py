@@ -67,11 +67,11 @@ def load_projects(filename):
             if line == "":
                 continue
             name, start_str, priority_s, cost_s, completion_s = line.split("\t")
-            start_dt = datetime.datetime.strptime(start_str, "%d/%m/%Y").date()
+            start_date = datetime.datetime.strptime(start_str, "%d/%m/%Y").date()
 
             project = Project(
                 name=name,
-                start_date=start_dt,
+                start_date=start_date,
                 priority=int(priority_s),
                 cost_estimate=float(cost_s),
                 completion=int(completion_s),
@@ -86,25 +86,26 @@ def save_projects(projects):
 
     with open(filename, "w", encoding="utf-8") as out_file:
         print("Name\tStart Date\tPriority\tCost Estimate\tCompletion", file=out_file)
-        for p in projects:
-            start_str = p.start_date.strftime("%d/%m/%Y")
-            print(f"{p.name}\t{start_str}\t{p.priority}\t{p.cost_estimate}\t{p.completion}", file=out_file)
+        for project in projects:
+            start_str = project.start_date.strftime("%d/%m/%Y")
+            print(f"{project.name}\t{start_str}\t{project.priority}\t{project.cost_estimate}\t{project.completion}",
+                  file=out_file)
     print(f"Saved {len(projects)} projects to {filename}")
 
 
 def display_projects(projects):
     """Display two groups, incomplete and complete, sorted by priority"""
-    incomplete = [p for p in projects if not p.is_complete()]
-    completed = [p for p in projects if p.is_complete()]
+    incomplete = [project for project in projects if not project.is_complete()]
+    completed = [project for project in projects if project.is_complete()]
     incomplete.sort()
     completed.sort()
     print("Incomplete projects: ")
-    for p in incomplete:
-        print(f" {p}")
+    for project in incomplete:
+        print(f" {project}")
 
     print("Completed projects: ")
-    for p in completed:
-        print(f" {p}")
+    for project in completed:
+        print(f" {project}")
 
 
 def filter_projects_by_date(projects):
@@ -115,11 +116,11 @@ def filter_projects_by_date(projects):
     except ValueError:
         after = datetime.datetime.strptime(date_string, "%d/%m/%y").date()
 
-    filtered = [p for p in projects if p.start_date >= after]
+    filtered = [project for project in projects if project.start_date >= after]
     filtered.sort(key=attrgetter("start_date"))
 
-    for p in filtered:
-        print(p)
+    for project in filtered:
+        print(project)
 
 
 def add_new_project(projects):
