@@ -21,4 +21,4 @@ class SilverServiceTaxi(Taxi):
 
     def get_fare(self):
         fare = self.flagfall + super().get_fare()
-        return f"${fare:.2f}"
+        return fare
